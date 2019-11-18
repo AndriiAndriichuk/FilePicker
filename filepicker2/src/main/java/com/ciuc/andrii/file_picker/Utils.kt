@@ -1,4 +1,4 @@
-package com.ciuc.andrii.filepicker
+package com.ciuc.andrii.file_picker
 
 import android.content.Context
 import android.widget.ImageView

@@ -1,4 +1,4 @@
-package com.ciuc.andrii.filepicker
+package com.ciuc.andrii.file_picker
 
 enum class ToolbarStyle(val styleID: Int) {
     TOP(1), BOTTOM(2)

@@ -1,7 +1,6 @@
 package com.ciuc.andrii.file_picker
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ContextThemeWrapper
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chootdev.recycleclick.RecycleClick
-import com.ciuc.andrii.filepicker.*
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_file_picker.*
 import kotlinx.android.synthetic.main.activity_file_picker2.*
