@@ -1,2 +1,2 @@
-include ':app', ':filepicker2'
+include ':app', ':file_picker'
 rootProject.name='FilePicker'

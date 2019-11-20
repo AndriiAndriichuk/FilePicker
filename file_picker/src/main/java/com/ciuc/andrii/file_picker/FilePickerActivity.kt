@@ -1,8 +1,11 @@
 package com.ciuc.andrii.file_picker
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +13,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.widget.TextViewCompat
@@ -50,13 +54,23 @@ class FilePickerActivity : AppCompatActivity() {
     private var mapPathToChip = hashMapOf<String, Chip>()
     private var mapIdToPath = hashMapOf<Int, String>()
     private var listExtensions = arrayOf<String>()
+    protected var STORAGE_PERMISSION = 9652
+    protected var REQUESET_OPEN_APP_SETTINGS = 9651
 
     private var storageWord = "Phone"
+
+    val lp = LinearLayout.LayoutParams(
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val style = intent.getIntExtra(STYLE, 1)
+        val style = intent.getIntExtra(TOOLBAR_POSITION, 1)
 
         if (style == 1) {
             setContentView(R.layout.activity_file_picker)
@@ -92,54 +106,9 @@ class FilePickerActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         currentRecyclerView.layoutManager = linearLayoutManager
 
-        val lp = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+
 
         lp.setMargins(10, 0, 10, 0)
-
-        if (checkPermissions()) {
-            currentPath =
-                this.getExternalFilesDir(null)!!.absolutePath.substringBeforeLast("/Android/")
-            rootPath = currentPath
-
-            if (listExtensions.isNullOrEmpty()) {
-                val files = File(currentPath).listFiles()
-                if (files != null && files.isNotEmpty()) {
-                    files.forEach {
-                        mediaFiles.add(FilePick(it))
-                    }
-                    val rootChip = createNewChip(storageWord)
-                    currentLinear.addView(rootChip, lp)
-                    mapPathToChip[currentPath] = rootChip
-                }
-            } else if (listExtensions.isNotEmpty()) {
-                mediaFiles.addAll(
-                    searchFilesWithExtension2(
-                        arrayListOf(),
-                        File(currentPath),
-                        listExtensions
-                    ).map { FilePick(it) })
-
-                listExtensions.forEach {
-                    val rootChip = createNewChip(it, true)
-                    currentLinear.addView(rootChip, lp)
-                    mapPathToChip[currentPath] = rootChip
-                }
-
-            }
-
-
-            adapter = FilesAdapter(mediaFiles, isList = true)
-            currentRecyclerView.adapter = adapter
-
-
-
-        } else {
-            Toast.makeText(this, "Please, check permissions", Toast.LENGTH_LONG).show()
-        }
-
 
 
 
@@ -197,6 +166,50 @@ class FilePickerActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (checkPermissions()) {
+            currentPath =
+                this.getExternalFilesDir(null)!!.absolutePath.substringBeforeLast("/Android/")
+            rootPath = currentPath
+
+            if (listExtensions.isNullOrEmpty()) {
+                val files = File(currentPath).listFiles()
+                if (files != null && files.isNotEmpty()) {
+                    files.forEach {
+                        mediaFiles.add(FilePick(it))
+                    }
+                    val rootChip = createNewChip(storageWord)
+                    currentLinear.addView(rootChip, lp)
+                    mapPathToChip[currentPath] = rootChip
+                }
+            } else if (listExtensions.isNotEmpty()) {
+                mediaFiles.addAll(
+                    searchFilesWithExtension2(
+                        arrayListOf(),
+                        File(currentPath),
+                        listExtensions
+                    ).map { FilePick(it) })
+
+                listExtensions.forEach {
+                    val rootChip = createNewChip(it, true)
+                    currentLinear.addView(rootChip, lp)
+                    mapPathToChip[currentPath] = rootChip
+                }
+
+            }
+
+
+            adapter = FilesAdapter(mediaFiles, isList = true)
+            currentRecyclerView.adapter = adapter
+
+
+
+        } else {
+            Toast.makeText(this, "Please, check permissions", Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun setCustomStylesFromExtra() {
         currentImageList = intent.getIntExtra(LIST_IMAGE, R.drawable.ic_list)
         currentImageGrid = intent.getIntExtra(GRID_IMAGE, R.drawable.ic_grid)
@@ -219,6 +232,7 @@ class FilePickerActivity : AppCompatActivity() {
                 R.drawable.background_white
             )
         )
+
         currentToolbar.setBackgroundResource(
             intent.getIntExtra(
                 TOOLBAR_BACKGROUND,
@@ -364,11 +378,49 @@ class FilePickerActivity : AppCompatActivity() {
         return arrayForAdding
     }
 
-    private fun checkPermissions(): Boolean {
+   /* private fun checkPermissions(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
+    }
+*/
+    private fun checkPermissions(): Boolean {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+                openAppSettings()
+                return false
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ),
+                    STORAGE_PERMISSION
+                )
+                return false
+            }
+
+        } else {
+            return true
+        }
+    }
+
+
+    private fun openAppSettings() {
+        val intent = Intent()
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivityForResult(intent, REQUESET_OPEN_APP_SETTINGS)
     }
 
 

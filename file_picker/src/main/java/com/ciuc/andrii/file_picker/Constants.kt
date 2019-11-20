@@ -1,10 +1,10 @@
 package com.ciuc.andrii.file_picker
 
-enum class ToolbarStyle(val styleID: Int) {
+enum class ToolbarPosition(val styleID: Int) {
     TOP(1), BOTTOM(2)
 }
 
-const val STYLE = "STYLE"
+const val TOOLBAR_POSITION = "TOOLBAR_POSITION"
 const val ARRAY_EXTENSION = "ARRAY_EXTENSION"
 const val TEXT_STYLE_NAME = "TEXT_STYLE_NAME"
 const val TEXT_STYLE_DATE = "TEXT_STYLE_DATE"

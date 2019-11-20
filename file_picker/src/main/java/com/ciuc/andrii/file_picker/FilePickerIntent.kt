@@ -4,13 +4,69 @@ import android.content.Context
 import android.content.Intent
 
 
-class FilePickerIntent(val packageContext: Context, val cls: Class<*>) : Intent(packageContext, cls) {
+class FilePickerIntent(
+    val packageContext: Context,
+    val cls: Class<*> = FilePickerActivity::class.java
+) : Intent(packageContext, cls) {
 
-    var toolbarStyle: ToolbarStyle = ToolbarStyle.TOP
+    var customBackgroundStyle: Int = android.R.color.white
 
     init {
-        this.putExtra(STYLE, toolbarStyle)
+        this.putExtra(ROOT_BACKGROUND, android.R.color.white)
     }
+
+
+
+    var toolbarPosition: ToolbarPosition = ToolbarPosition.TOP
+
+    init {
+        this.putExtra(TOOLBAR_POSITION, toolbarPosition)
+    }
+
+    var customBackgroundToolbarStyle: Int = android.R.color.white
+
+    init {
+        this.putExtra(TOOLBAR_BACKGROUND, android.R.color.white)
+    }
+
+
+    var customListImage: Int = R.drawable.ic_list
+
+    init {
+        this.putExtra(LIST_IMAGE, R.drawable.ic_list)
+    }
+
+    var customGridImage: Int = R.drawable.ic_grid
+
+    init {
+        this.putExtra(GRID_IMAGE, R.drawable.ic_grid)
+    }
+
+    var customDoneImage: Int = R.drawable.ic_done
+
+    init {
+        this.putExtra(DONE_IMAGE, R.drawable.ic_done)
+    }
+
+    var customTextCountStyle: Int = R.style.Widget_AppCompat_TextView
+
+    init {
+        this.putExtra(TEXT_COUNT_STYLE, R.style.Widget_AppCompat_TextView)
+    }
+
+
+    var customChipStyle: Int = R.style.Widget_MaterialComponents_Chip_Action
+
+    init {
+        this.putExtra(CUSTOM_CHIP_STYLE, R.style.Widget_MaterialComponents_Chip_Action)
+    }
+
+    var storageWord: String = "Phone"
+
+    init {
+        this.putExtra(STORAGE_WORD, "Phone")
+    }
+
 
     var customExtensions: Array<String> = arrayOf()
 
@@ -72,41 +128,6 @@ class FilePickerIntent(val packageContext: Context, val cls: Class<*>) : Intent(
         this.putExtra(CUSTOM_LAYOUT_GRID, R.layout.recycler_view_item_grid)
     }
 
-    var customBackgroundStyle: Int = android.R.color.white
-
-    init {
-        this.putExtra(ROOT_BACKGROUND, android.R.color.white)
-    }
-
-    var customBackgroundToolbarStyle: Int = android.R.color.white
-
-    init {
-        this.putExtra(TOOLBAR_BACKGROUND, android.R.color.white)
-    }
-
-    var customListImage: Int = R.drawable.ic_list
-
-    init {
-        this.putExtra(LIST_IMAGE, R.drawable.ic_list)
-    }
-
-    var customGridImage: Int = R.drawable.ic_grid
-
-    init {
-        this.putExtra(GRID_IMAGE, R.drawable.ic_grid)
-    }
-
-    var customDoneImage: Int = R.drawable.ic_done
-
-    init {
-        this.putExtra(DONE_IMAGE, R.drawable.ic_done)
-    }
-
-    var customTextCountStyle: Int = R.style.Widget_AppCompat_TextView
-
-    init {
-        this.putExtra(TEXT_COUNT_STYLE, R.style.Widget_AppCompat_TextView)
-    }
 
     var customGridCount: Int = 3
 
@@ -115,25 +136,18 @@ class FilePickerIntent(val packageContext: Context, val cls: Class<*>) : Intent(
     }
 
 
-    var customChipStyle: Int = R.style.Widget_MaterialComponents_Chip_Action
-
-    init {
-        this.putExtra(CUSTOM_CHIP_STYLE, R.style.Widget_MaterialComponents_Chip_Action)
-    }
-
-    var storageWord: String = "Phone"
-
-    init {
-        this.putExtra(STORAGE_WORD, "Phone")
-    }
-
-
     inner class Builder {
         private val intent: FilePickerIntent = FilePickerIntent(packageContext, cls)
 
-        fun withStyle(number: ToolbarStyle): Builder {
-            intent.putExtra(STYLE, number.styleID)
-            intent.toolbarStyle = number
+        fun withStyle(number: ToolbarPosition): Builder {
+            intent.putExtra(TOOLBAR_POSITION, number.styleID)
+            intent.toolbarPosition = number
+            return this
+        }
+
+        fun withBackgroundToolbar(background: Int): Builder {
+            intent.putExtra(TOOLBAR_BACKGROUND, background)
+            customBackgroundToolbarStyle = background
             return this
         }
 
@@ -203,11 +217,6 @@ class FilePickerIntent(val packageContext: Context, val cls: Class<*>) : Intent(
             return this
         }
 
-        fun withBackgroundToolbar(background: Int): Builder {
-            intent.putExtra(TOOLBAR_BACKGROUND, background)
-            customBackgroundToolbarStyle = background
-            return this
-        }
 
         fun withListImage(image: Int): Builder {
             intent.putExtra(LIST_IMAGE, image)
