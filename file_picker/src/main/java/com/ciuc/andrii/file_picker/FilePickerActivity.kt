@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.provider.Settings
 import android.view.ContextThemeWrapper
 import android.view.View
@@ -210,6 +211,17 @@ class FilePickerActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle?,
+        persistentState: PersistableBundle?
+    ) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState)
+    }
+
     private fun setCustomStylesFromExtra() {
         currentImageList = intent.getIntExtra(LIST_IMAGE, R.drawable.ic_list)
         currentImageGrid = intent.getIntExtra(GRID_IMAGE, R.drawable.ic_grid)
@@ -378,13 +390,7 @@ class FilePickerActivity : AppCompatActivity() {
         return arrayForAdding
     }
 
-   /* private fun checkPermissions(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-*/
+
     private fun checkPermissions(): Boolean {
         if (ContextCompat.checkSelfPermission(
                 this,
