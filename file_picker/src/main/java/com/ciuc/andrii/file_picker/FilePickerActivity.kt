@@ -213,6 +213,9 @@ class FilePickerActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        if (mediaFiles.isNotEmpty()) {
+            outState.putStringArrayList("ARRAY_STRING", mediaFiles.filter { it.isChosen }.map { it.file.absolutePath } as ArrayList<String>)
+        }
     }
 
     override fun onRestoreInstanceState(
@@ -220,6 +223,16 @@ class FilePickerActivity : AppCompatActivity() {
         persistentState: PersistableBundle?
     ) {
         super.onRestoreInstanceState(savedInstanceState, persistentState)
+        if (mediaFiles.isNotEmpty()) {
+            val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
+            if (list != null) {
+                mediaFiles.filter { list.contains(it.file.absolutePath) }.forEach {
+                    it.isChosen = true
+                }
+                adapter = FilesAdapter(mediaFiles, isList = true)
+                currentRecyclerView.adapter = adapter
+            }
+        }
     }
 
     private fun setCustomStylesFromExtra() {
