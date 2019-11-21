@@ -248,6 +248,8 @@ class FilePickerActivity : AppCompatActivity() {
                 currentImageChosenItems.visibility = View.VISIBLE
             }
         }
+        savedInstanceState.putStringArrayList("ARRAY_STRING", arrayListOf())
+        savedInstanceState.putStringArrayList("ARRAY_STRING_MEDIA", arrayListOf())
     }
 
     private fun setCustomStylesFromExtra() {
