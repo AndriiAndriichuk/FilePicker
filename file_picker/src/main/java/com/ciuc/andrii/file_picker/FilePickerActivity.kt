@@ -113,6 +113,8 @@ class FilePickerActivity : AppCompatActivity() {
 
         lp.setMargins(10, 0, 10, 0)
 
+        adapter = FilesAdapter(mediaFiles, isList = true)
+
 
 
 
@@ -228,7 +230,7 @@ class FilePickerActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
         val mediaFilesList = savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
-        mediaFiles = mediaFilesList 
+        mediaFiles = mediaFilesList
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState.getStringArrayList("ARRAY_STRING")
             Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
