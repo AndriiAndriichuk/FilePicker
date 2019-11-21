@@ -189,7 +189,6 @@ class FilePickerActivity : AppCompatActivity() {
                     mapPathToChip[currentPath] = rootChip
                 }
             } else if (listExtensions.isNotEmpty()) {
-                mediaFiles.clear()
                 mediaFiles.addAll(
                     searchFilesWithExtension2(
                         arrayListOf(),
@@ -232,6 +231,7 @@ class FilePickerActivity : AppCompatActivity() {
         Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
         val mediaFilesList = savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
         Log.d("sbsbssgesgewhgew", "On Restore Instant state mediaFilesList.size ->>>>> ${mediaFilesList.size}")
+        mediaFiles.clear()
         mediaFiles = mediaFilesList
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState.getStringArrayList("ARRAY_STRING")
