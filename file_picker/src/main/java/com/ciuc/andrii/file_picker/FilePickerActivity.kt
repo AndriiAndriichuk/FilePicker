@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.provider.Settings
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
@@ -215,6 +216,7 @@ class FilePickerActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         if (mediaFiles.isNotEmpty()) {
             outState.putStringArrayList("ARRAY_STRING", mediaFiles.filter { it.isChosen }.map { it.file.absolutePath } as ArrayList<String>)
+            Log.d("sbsbssgesgewhgew", "On Save Instant state -> ${mediaFiles.filter { it.isChosen }.map { it.file.absolutePath }}")
         }
     }
 
@@ -229,6 +231,7 @@ class FilePickerActivity : AppCompatActivity() {
                 mediaFiles.filter { it.file.absolutePath in list }.forEach {
                     it.isChosen = true
                 }
+                Log.d("sbsbssgesgewhgew", "On Restore Instant state ->  ${mediaFiles.filter { it.file.absolutePath in list }}")
                 adapter = FilesAdapter(mediaFiles, adapter.isList)
                 currentRecyclerView.adapter = adapter
             }
