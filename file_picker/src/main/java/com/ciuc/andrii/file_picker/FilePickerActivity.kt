@@ -221,10 +221,9 @@ class FilePickerActivity : AppCompatActivity() {
     }
 
     override fun onRestoreInstanceState(
-        savedInstanceState: Bundle?,
-        persistentState: PersistableBundle?
+        savedInstanceState: Bundle?
     ) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState)
+        super.onRestoreInstanceState(savedInstanceState)
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
             if (list != null) {
