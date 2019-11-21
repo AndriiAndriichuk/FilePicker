@@ -179,7 +179,6 @@ class FilePickerActivity : AppCompatActivity() {
             rootPath = currentPath
 
             if (listExtensions.isNullOrEmpty()) {
-                mediaFiles.clear()
                 val files = File(currentPath).listFiles()
                 if (files != null && files.isNotEmpty()) {
                     files.forEach {
