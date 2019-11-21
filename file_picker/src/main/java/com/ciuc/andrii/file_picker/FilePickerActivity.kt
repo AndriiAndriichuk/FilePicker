@@ -179,6 +179,7 @@ class FilePickerActivity : AppCompatActivity() {
             rootPath = currentPath
 
             if (listExtensions.isNullOrEmpty()) {
+                mediaFiles.clear()
                 val files = File(currentPath).listFiles()
                 if (files != null && files.isNotEmpty()) {
                     files.forEach {
@@ -189,6 +190,7 @@ class FilePickerActivity : AppCompatActivity() {
                     mapPathToChip[currentPath] = rootChip
                 }
             } else if (listExtensions.isNotEmpty()) {
+                mediaFiles.clear()
                 mediaFiles.addAll(
                     searchFilesWithExtension2(
                         arrayListOf(),
