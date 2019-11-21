@@ -227,6 +227,7 @@ class FilePickerActivity : AppCompatActivity() {
         Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
+            Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
             if (list != null) {
                 mediaFiles.filter { it.file.absolutePath in list }.forEach {
                     it.isChosen = true
