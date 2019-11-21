@@ -169,50 +169,17 @@ class FilePickerActivity : AppCompatActivity() {
             }
 
         }
+
+        loadAllFiles()
+
+
     }
+
+
 
     override fun onResume() {
         super.onResume()
-        if (checkPermissions()) {
-            currentPath =
-                this.getExternalFilesDir(null)!!.absolutePath.substringBeforeLast("/Android/")
-            rootPath = currentPath
 
-            if (listExtensions.isNullOrEmpty()) {
-                val files = File(currentPath).listFiles()
-                if (files != null && files.isNotEmpty()) {
-                    files.forEach {
-                        mediaFiles.add(FilePick(it))
-                    }
-                    val rootChip = createNewChip(storageWord)
-                    currentLinear.addView(rootChip, lp)
-                    mapPathToChip[currentPath] = rootChip
-                }
-            } else if (listExtensions.isNotEmpty()) {
-                mediaFiles.addAll(
-                    searchFilesWithExtension2(
-                        arrayListOf(),
-                        File(currentPath),
-                        listExtensions
-                    ).map { FilePick(it) })
-
-                listExtensions.forEach {
-                    val rootChip = createNewChip(it, true)
-                    currentLinear.addView(rootChip, lp)
-                    mapPathToChip[currentPath] = rootChip
-                }
-
-            }
-
-
-            adapter = FilesAdapter(mediaFiles, isList = true)
-            currentRecyclerView.adapter = adapter
-
-
-
-        } else {
-            Toast.makeText(this, "Please, check permissions", Toast.LENGTH_LONG).show()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -391,6 +358,49 @@ class FilePickerActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
 
+        }
+    }
+
+    private fun loadAllFiles() {
+        if (checkPermissions()) {
+            currentPath =
+                this.getExternalFilesDir(null)!!.absolutePath.substringBeforeLast("/Android/")
+            rootPath = currentPath
+
+            if (listExtensions.isNullOrEmpty()) {
+                val files = File(currentPath).listFiles()
+                if (files != null && files.isNotEmpty()) {
+                    files.forEach {
+                        mediaFiles.add(FilePick(it))
+                    }
+                    val rootChip = createNewChip(storageWord)
+                    currentLinear.addView(rootChip, lp)
+                    mapPathToChip[currentPath] = rootChip
+                }
+            } else if (listExtensions.isNotEmpty()) {
+                mediaFiles.addAll(
+                    searchFilesWithExtension2(
+                        arrayListOf(),
+                        File(currentPath),
+                        listExtensions
+                    ).map { FilePick(it) })
+
+                listExtensions.forEach {
+                    val rootChip = createNewChip(it, true)
+                    currentLinear.addView(rootChip, lp)
+                    mapPathToChip[currentPath] = rootChip
+                }
+
+            }
+
+
+            adapter = FilesAdapter(mediaFiles, isList = true)
+            currentRecyclerView.adapter = adapter
+
+
+
+        } else {
+            Toast.makeText(this, "Please, check permissions", Toast.LENGTH_LONG).show()
         }
     }
 
