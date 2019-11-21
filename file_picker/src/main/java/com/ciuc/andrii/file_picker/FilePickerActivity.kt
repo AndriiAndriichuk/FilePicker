@@ -226,10 +226,10 @@ class FilePickerActivity : AppCompatActivity() {
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
             if (list != null) {
-                mediaFiles.filter { list.contains(it.file.absolutePath) }.forEach {
+                mediaFiles.filter { it.file.absolutePath in list }.forEach {
                     it.isChosen = true
                 }
-                adapter = FilesAdapter(mediaFiles, isList = true)
+                adapter = FilesAdapter(mediaFiles, adapter.isList)
                 currentRecyclerView.adapter = adapter
             }
         }
