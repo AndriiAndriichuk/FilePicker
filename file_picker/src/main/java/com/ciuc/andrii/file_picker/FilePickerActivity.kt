@@ -28,11 +28,12 @@ import kotlinx.android.synthetic.main.activity_file_picker.*
 import kotlinx.android.synthetic.main.activity_file_picker2.*
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FilePickerActivity : AppCompatActivity() {
 
-    private val mediaFiles = ArrayList<FilePick>()
+    private var mediaFiles = ArrayList<FilePick>()
     private var currentPath = ""
 
     private lateinit var adapter: FilesAdapter
@@ -216,6 +217,7 @@ class FilePickerActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         if (mediaFiles.isNotEmpty()) {
             outState.putStringArrayList("ARRAY_STRING", mediaFiles.filter { it.isChosen }.map { it.file.absolutePath } as ArrayList<String>)
+            outState.putStringArrayList("ARRAY_STRING_MEDIA", mediaFiles.map { it.file.absolutePath } as ArrayList<String>)
             Log.d("sbsbssgesgewhgew", "On Save Instant state -> ${mediaFiles.filter { it.isChosen }.map { it.file.absolutePath }}")
         }
     }
@@ -225,8 +227,10 @@ class FilePickerActivity : AppCompatActivity() {
     ) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
-
-            val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
+        val mediaFilesList = savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
+        mediaFiles = mediaFilesList 
+        if (mediaFiles.isNotEmpty()) {
+            val list = savedInstanceState.getStringArrayList("ARRAY_STRING")
             Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
             if (list != null) {
                 mediaFiles.filter { it.file.absolutePath in list }.forEach {
@@ -236,7 +240,7 @@ class FilePickerActivity : AppCompatActivity() {
                 adapter = FilesAdapter(mediaFiles, adapter.isList)
                 currentRecyclerView.adapter = adapter
             }
-
+        }
     }
 
     private fun setCustomStylesFromExtra() {
