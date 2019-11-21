@@ -224,6 +224,7 @@ class FilePickerActivity : AppCompatActivity() {
         savedInstanceState: Bundle?
     ) {
         super.onRestoreInstanceState(savedInstanceState)
+        Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
             if (list != null) {
