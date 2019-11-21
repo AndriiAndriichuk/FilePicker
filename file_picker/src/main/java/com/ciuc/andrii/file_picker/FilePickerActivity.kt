@@ -230,9 +230,11 @@ class FilePickerActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
         val mediaFilesList = savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
+        Log.d("sbsbssgesgewhgew", "On Restore Instant state mediaFilesList.size ->>>>> ${mediaFilesList.size}")
         mediaFiles = mediaFilesList
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState.getStringArrayList("ARRAY_STRING")
+            Log.d("sbsbssgesgewhgew", "On Restore Instant state list.size ->>>>> ${list?.size}")
             Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
             if (list != null) {
                 val listChosen = mediaFiles.filter { it.file.absolutePath in list }
@@ -248,8 +250,6 @@ class FilePickerActivity : AppCompatActivity() {
                 currentImageChosenItems.visibility = View.VISIBLE
             }
         }
-        savedInstanceState.putStringArrayList("ARRAY_STRING", arrayListOf())
-        savedInstanceState.putStringArrayList("ARRAY_STRING_MEDIA", arrayListOf())
     }
 
     private fun setCustomStylesFromExtra() {
