@@ -235,12 +235,15 @@ class FilePickerActivity : AppCompatActivity() {
             val list = savedInstanceState.getStringArrayList("ARRAY_STRING")
             Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
             if (list != null) {
-                mediaFiles.filter { it.file.absolutePath in list }.forEach {
+                val listChosen = mediaFiles.filter { it.file.absolutePath in list }
+                listChosen.forEach {
                     it.isChosen = true
                 }
                 Log.d("sbsbssgesgewhgew", "On Restore Instant state ->  ${mediaFiles.filter { it.file.absolutePath in list }}")
                 adapter = FilesAdapter(mediaFiles, adapter.isList)
+                adapter.itemsChosen = listChosen.size
                 currentRecyclerView.adapter = adapter
+
                 currentChosenItems.text = adapter.itemsChosen.toString()
                 currentImageChosenItems.visibility = View.VISIBLE
             }
