@@ -241,6 +241,8 @@ class FilePickerActivity : AppCompatActivity() {
                 Log.d("sbsbssgesgewhgew", "On Restore Instant state ->  ${mediaFiles.filter { it.file.absolutePath in list }}")
                 adapter = FilesAdapter(mediaFiles, adapter.isList)
                 currentRecyclerView.adapter = adapter
+                currentChosenItems.text = adapter.itemsChosen.toString()
+                currentImageChosenItems.visibility = View.VISIBLE
             }
         }
     }
