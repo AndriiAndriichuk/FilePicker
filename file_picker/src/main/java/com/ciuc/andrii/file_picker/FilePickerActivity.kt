@@ -225,7 +225,7 @@ class FilePickerActivity : AppCompatActivity() {
     ) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
-        if (mediaFiles.isNotEmpty()) {
+
             val list = savedInstanceState?.getStringArrayList("ARRAY_STRING")
             Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
             if (list != null) {
@@ -236,7 +236,7 @@ class FilePickerActivity : AppCompatActivity() {
                 adapter = FilesAdapter(mediaFiles, adapter.isList)
                 currentRecyclerView.adapter = adapter
             }
-        }
+
     }
 
     private fun setCustomStylesFromExtra() {
