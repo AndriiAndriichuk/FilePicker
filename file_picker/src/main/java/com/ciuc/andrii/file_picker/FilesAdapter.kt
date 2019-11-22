@@ -66,7 +66,7 @@ class FilesAdapter(
             if (list[position].file.isDirectory) {
 
                 if (parent.image != null) {
-                    loadWithGlide(context, R.drawable.ic_folder, parent.image)
+                    loadWithGlide(context, R.drawable.ic_f, parent.image)
                 }
                 //parent.rootConstraint.
 
