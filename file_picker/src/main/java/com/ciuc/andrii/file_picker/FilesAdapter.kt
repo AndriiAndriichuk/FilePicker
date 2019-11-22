@@ -2,6 +2,7 @@ package com.ciuc.andrii.file_picker
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -141,6 +142,7 @@ class FilesAdapter(
                             loadWithGlide(context, R.drawable.ic_pdf, parent.image)
                         }
                         else -> {
+                            Log.d("imagesdsfvdv", MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath))
                             loadWithGlide(context, R.drawable.ic_file, parent.image)
                         }
                     }
