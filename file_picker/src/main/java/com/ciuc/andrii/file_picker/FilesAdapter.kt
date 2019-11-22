@@ -133,7 +133,7 @@ class FilesAdapter(
                         "pps", "ppt", "pptx" -> {
                             loadWithGlide(context, R.drawable.ic_pptx, parent.image)
                         }
-                        "doc", "docx" -> {
+                        "doc", "docx", ".docx" -> {
                             loadWithGlide(context, R.drawable.ic_docx, parent.image)
                         }
                         "pdf" -> {

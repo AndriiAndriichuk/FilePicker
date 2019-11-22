@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                            .withChipStyle(R.style.Widget_MaterialComponents_Chip_Action)
                            .withTextCountStyle(R.style.text_count_style)*/
                     .withGridCount(3)
-                    .withExtension("jpg", "gif", "mp4", "pdf", "txt")
+                   // .withExtension("jpg", "gif", "mp4", "pdf", "txt")
                     .withStorageWord("Phone storage")
                     .build()
 
