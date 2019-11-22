@@ -112,6 +112,7 @@ class FilesAdapter(
 
 
                 if (parent.image != null) {
+                    Log.d("imagesdsfvdv", MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath))
                     when (MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath)) {
                         "jpg", "jpeg", "bmp", "gif", "png", "tif", "tiff" -> {
                             loadWithGlide(context, list[position].file.absolutePath, parent.image)
@@ -134,7 +135,7 @@ class FilesAdapter(
                         "pps", "ppt", "pptx" -> {
                             loadWithGlide(context, R.drawable.ic_pptx, parent.image)
                         }
-                        "doc", "docx", ".docx" -> {
+                        "doc", "docx" -> {
                            // loadWithGlide(context, R.drawable.ic_docx, parent.image)
                             loadSVG(R.drawable.ic_docx, parent.image)
                         }
@@ -142,8 +143,9 @@ class FilesAdapter(
                             loadWithGlide(context, R.drawable.ic_pdf, parent.image)
                         }
                         else -> {
-                            Log.d("imagesdsfvdv", MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath))
-                            loadWithGlide(context, R.drawable.ic_file, parent.image)
+
+                            //loadWithGlide(context, R.drawable.ic_file, parent.image)
+                            loadSVG(R.drawable.ic_docx, parent.image)
                         }
                     }
                 }
