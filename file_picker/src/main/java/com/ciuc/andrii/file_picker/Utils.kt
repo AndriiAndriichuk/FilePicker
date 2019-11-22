@@ -1,6 +1,7 @@
 package com.ciuc.andrii.file_picker
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import kotlin.math.round
@@ -18,6 +19,10 @@ fun loadWithGlide(context: Context, filePath: String, imageView: ImageView) {
         .load(filePath)
         .centerCrop()
         .into(imageView)
+}
+
+fun loadSVG(drawable: Int, imageView: ImageView) {
+    imageView.setImageResource(drawable)
 }
 
 fun Double.round(decimals: Int): Double {
