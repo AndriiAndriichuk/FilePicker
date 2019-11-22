@@ -2,6 +2,9 @@ package com.ciuc.andrii.file_picker
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,8 @@ import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
@@ -85,7 +90,10 @@ class FilesAdapter(
                     var fileName = list[position].file.absolutePath.substringAfterLast('/')
 
                     if (fileName.length > 30) {
-                        fileName = fileName.substring(0, 14) + "..." + fileName.substring(fileName.length - 13, fileName.length)
+                        fileName = fileName.substring(
+                            0,
+                            14
+                        ) + "..." + fileName.substring(fileName.length - 13, fileName.length)
                     }
                     parent.textItem.text = fileName
 
@@ -152,7 +160,10 @@ class FilesAdapter(
                     var fileName = list[position].file.absolutePath.substringAfterLast('/')
 
                     if (fileName.length > 30) {
-                        fileName = fileName.substring(0, 14) + "..." + fileName.substring(fileName.length - 13, fileName.length)
+                        fileName = fileName.substring(
+                            0,
+                            14
+                        ) + "..." + fileName.substring(fileName.length - 13, fileName.length)
                     }
                     parent.textItem.text = fileName
                 }
@@ -180,9 +191,20 @@ class FilesAdapter(
 
                 if (parent.rootConstraint != null) {
                     if (!list[position].isChosen) {
+                        val unwrappedDrawable: Drawable =
+                            AppCompatResources.getDrawable(context, R.drawable.ripple) as Drawable
+                        val wrappedDrawable: Drawable = DrawableCompat.wrap(unwrappedDrawable)
                         parent.rootConstraint.setBackgroundResource(R.drawable.ripple)
+                        wrappedDrawable.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN)
+                        DrawableCompat.setTint(wrappedDrawable, Color.YELLOW)
                     } else {
+                        val unwrappedDrawable: Drawable =
+                            AppCompatResources.getDrawable(context, R.drawable.ripple2) as Drawable
+                        val wrappedDrawable: Drawable = DrawableCompat.wrap(unwrappedDrawable)
                         parent.rootConstraint.setBackgroundResource(R.drawable.ripple2)
+                        wrappedDrawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
+                        DrawableCompat.setTint(wrappedDrawable, Color.BLUE)
+
                     }
                 }
 

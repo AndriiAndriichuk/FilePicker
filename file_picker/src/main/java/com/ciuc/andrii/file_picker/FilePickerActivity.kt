@@ -187,7 +187,6 @@ class FilePickerActivity : AppCompatActivity() {
         if (mediaFiles.isNotEmpty()) {
             outState.putStringArrayList("ARRAY_STRING", mediaFiles.filter { it.isChosen }.map { it.file.absolutePath } as ArrayList<String>)
             outState.putStringArrayList("ARRAY_STRING_MEDIA", mediaFiles.map { it.file.absolutePath } as ArrayList<String>)
-            Log.d("sbsbssgesgewhgew", "On Save Instant state -> ${mediaFiles.filter { it.isChosen }.map { it.file.absolutePath }}")
         }
     }
 
@@ -195,21 +194,16 @@ class FilePickerActivity : AppCompatActivity() {
         savedInstanceState: Bundle?
     ) {
         super.onRestoreInstanceState(savedInstanceState)
-        Log.d("sbsbssgesgewhgew", "On Restore Instant state ")
         val mediaFilesList = savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
-        Log.d("sbsbssgesgewhgew", "On Restore Instant state mediaFilesList.size ->>>>> ${mediaFilesList.size}")
         mediaFiles.clear()
         mediaFiles = mediaFilesList
         if (mediaFiles.isNotEmpty()) {
             val list = savedInstanceState.getStringArrayList("ARRAY_STRING")
-            Log.d("sbsbssgesgewhgew", "On Restore Instant state list.size ->>>>> ${list?.size}")
-            Log.d("sbsbssgesgewhgew", "On Restore Instant state list $list")
             if (list != null) {
                 val listChosen = mediaFiles.filter { it.file.absolutePath in list }
                 listChosen.forEach {
                     it.isChosen = true
                 }
-                Log.d("sbsbssgesgewhgew", "On Restore Instant state ->  ${mediaFiles.filter { it.file.absolutePath in list }}")
                 adapter = FilesAdapter(mediaFiles, adapter.isList)
                 adapter.itemsChosen = listChosen.size
                 currentRecyclerView.adapter = adapter
