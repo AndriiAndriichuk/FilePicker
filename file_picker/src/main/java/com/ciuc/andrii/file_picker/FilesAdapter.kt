@@ -180,9 +180,9 @@ class FilesAdapter(
 
                 if (parent.rootConstraint != null) {
                     if (!list[position].isChosen) {
-                        parent.rootConstraint.setBackgroundResource(R.drawable.ripple)
+                        parent.rootConstraint.setBackgroundResource(R.drawable.ripple_light)
                     } else {
-                        parent.rootConstraint.setBackgroundResource(R.drawable.ripple2)
+                        parent.rootConstraint.setBackgroundResource(R.drawable.ripple_dark)
                     }
                 }
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ripple_stroke_width">1dp</dimen>
+    <dimen name="ripple_corner_radius">3dp</dimen>
+
+</resources>
