@@ -67,7 +67,7 @@ class FilesAdapter(
             if (list[position].file.isDirectory) {
 
                 if (parent.image != null) {
-                    loadWithGlide(context, R.drawable.ic_f, parent.image)
+                    loadSVG(context, R.drawable.ic_folder, parent.image)
                 }
                 //parent.rootConstraint.
 
@@ -121,7 +121,7 @@ class FilesAdapter(
                             loadWithGlide(context, R.drawable.ic_txt, parent.image)
                         }
                         "mp3" -> {
-                            loadWithGlide(context, R.drawable.ic_audio, parent.image)
+                            loadWithGlide(context, R.drawable.ic_music, parent.image)
                         }
                         "m4v", "mp4", "mpg", "mpeg", "3gp" -> {
                             loadWithGlide(context, R.drawable.ic_video, parent.image)
@@ -133,19 +133,27 @@ class FilesAdapter(
                             loadWithGlide(context, R.drawable.ic_xml, parent.image)
                         }
                         "pps", "ppt", "pptx" -> {
-                            loadWithGlide(context, R.drawable.ic_pptx, parent.image)
+                            loadSVG(context, R.drawable.ic_ppt, parent.image)
                         }
                         "doc", "docx" -> {
                            // loadWithGlide(context, R.drawable.ic_docx, parent.image)
-                            loadSVG(context, R.drawable.ic_docx, parent.image)
+                            loadSVG(context, R.drawable.ic_doc, parent.image)
+                        }
+                        "doc", "docx" -> {
+                            // loadWithGlide(context, R.drawable.ic_docx, parent.image)
+                            loadSVG(context, R.drawable.ic_doc, parent.image)
+                        }
+                        "xlsx", "xlsm", "xlsb", "xltm", "xlam" -> {
+                            loadSVG(context, R.drawable.ic_excel, parent.image)
                         }
                         "pdf" -> {
                             loadWithGlide(context, R.drawable.ic_pdf, parent.image)
                         }
+
                         else -> {
 
-                            //loadWithGlide(context, R.drawable.ic_file, parent.image)
-                            loadSVG(context, R.drawable.ic_docx, parent.image)
+                            loadWithGlide(context, R.drawable.ic_file, parent.image)
+                           // loadSVG(context, R.drawable.ic_docx, parent.image)
                         }
                     }
                 }
