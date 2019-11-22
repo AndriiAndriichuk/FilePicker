@@ -8,5 +8,5 @@
     <color name="ripple_light_stroke">#838383</color>
 
     <color name="ripple_dark_color">#380064</color>
-    <color name="ripple_dark_stroke">#000000</color>
+    <color name="ripple_dark_stroke">#DF0808</color>
 </resources>

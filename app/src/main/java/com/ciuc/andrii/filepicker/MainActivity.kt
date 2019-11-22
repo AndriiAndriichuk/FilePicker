@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         btnPickFile.setOnClickListener {
 
             val intent =
-                FilePickerIntent(this, FilePickerActivity::class.java)
+                FilePickerIntent(this)
                     .Builder()
                     .withStyle(ToolbarPosition.TOP)
                     /*       .withTextStyleName(R.style.text_style)

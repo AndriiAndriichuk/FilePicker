@@ -134,7 +134,7 @@ class FilesAdapter(
                             loadWithGlide(context, R.drawable.ic_pptx, parent.image)
                         }
                         "doc", "docx" -> {
-                            loadWithGlide(context, R.drawable.ic_doc, parent.image)
+                            loadWithGlide(context, R.drawable.ic_docx, parent.image)
                         }
                         "pdf" -> {
                             loadWithGlide(context, R.drawable.ic_pdf, parent.image)
