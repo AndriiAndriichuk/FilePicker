@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#DF7400</color>
-    <color name="colorPrimaryDark">#6B3700</color>
-    <color name="colorAccent">#02B2CA</color>
+    <color name="colorPrimary">#5503DF</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
 
+    <color name="ripple_light_color">#CF01F3</color>
+    <color name="ripple_light_stroke">#838383</color>
 
+    <color name="ripple_dark_color">#380064</color>
+    <color name="ripple_dark_stroke">#000000</color>
 </resources>
