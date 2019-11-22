@@ -137,7 +137,7 @@ class FilesAdapter(
                         }
                         "doc", "docx" -> {
                            // loadWithGlide(context, R.drawable.ic_docx, parent.image)
-                            loadSVG(R.drawable.ic_docx, parent.image)
+                            loadSVG(context, R.drawable.ic_docx, parent.image)
                         }
                         "pdf" -> {
                             loadWithGlide(context, R.drawable.ic_pdf, parent.image)
@@ -145,7 +145,7 @@ class FilesAdapter(
                         else -> {
 
                             //loadWithGlide(context, R.drawable.ic_file, parent.image)
-                            loadSVG(R.drawable.ic_docx, parent.image)
+                            loadSVG(context, R.drawable.ic_docx, parent.image)
                         }
                     }
                 }

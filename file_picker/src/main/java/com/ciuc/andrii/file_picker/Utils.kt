@@ -21,8 +21,8 @@ fun loadWithGlide(context: Context, filePath: String, imageView: ImageView) {
         .into(imageView)
 }
 
-fun loadSVG(drawable: Int, imageView: ImageView) {
-    imageView.setImageResource(drawable)
+fun loadSVG(context: Context, drawable: Int, imageView: ImageView) {
+    imageView.setImageDrawable(context.resources.getDrawable(drawable))
 }
 
 fun Double.round(decimals: Int): Double {
