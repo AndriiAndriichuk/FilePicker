@@ -125,7 +125,7 @@ open class FilePickerActivity : AppCompatActivity() {
                     createNewChip(mediaFiles[position].file.absolutePath.substringAfterLast('/'))
 
                 val textDevider = TextView(this)
-                textDevider.text = "\u2BC8"
+                textDevider.text = "->"
                 textDevider.id = ViewCompat.generateViewId()
                 currentLinear.addView(textDevider, lpDevider)
                 mapChipToDevider[newChip] = textDevider
@@ -301,7 +301,8 @@ open class FilePickerActivity : AppCompatActivity() {
                             mapIdToPath.remove(mapPathToChip[currentPath]?.id)
                             mapChipToDevider.remove( mapPathToChip[currentPath])
                             if (mapChipToDevider[mapPathToChip[currentPath]] != null) {
-                                mapChipToDevider.remove(mapPathToChip[currentPath])
+                                mapChipToDevider.remove(mapChipToDevider[mapPathToChip[currentPath]])
+                                currentLinear.removeView(mapChipToDevider[mapPathToChip[currentPath]] as View)
                             }
                             mapPathToChip.remove(currentPath)
                             counter++
@@ -344,7 +345,8 @@ open class FilePickerActivity : AppCompatActivity() {
         if (currentPath != rootPath) {
             if (mapPathToChip[currentPath] != null) {
                 if (mapChipToDevider[mapPathToChip[currentPath]] != null) {
-                    mapChipToDevider.remove(mapPathToChip[currentPath])
+                    mapChipToDevider.remove(mapChipToDevider[mapPathToChip[currentPath]])
+                    currentLinear.removeView(mapChipToDevider[mapPathToChip[currentPath]] as View)
                 }
                 currentLinear.removeView(mapPathToChip[currentPath] as View)
                 mapIdToPath.remove(mapPathToChip[currentPath]?.id)
