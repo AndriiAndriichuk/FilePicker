@@ -124,14 +124,16 @@ open class FilePickerActivity : AppCompatActivity() {
                 val newChip =
                     createNewChip(mediaFiles[position].file.absolutePath.substringAfterLast('/'))
 
+                val textDevider = TextView(this)
+                textDevider.text = "->"
+                textDevider.id = ViewCompat.generateViewId()
+                currentLinear.addView(textDevider, lpDevider)
+                mapChipToDevider[newChip] = textDevider
+                
                 currentLinear.addView(newChip, lp)
                 mapPathToChip[currentPath] = newChip
 
-                val textDevider = TextView(this)
-                textDevider.text = "->"
-                newChip.id = ViewCompat.generateViewId()
-                currentLinear.addView(textDevider, lpDevider)
-                mapChipToDevider[newChip] = textDevider
+
 
                 loadFiles(currentPath)
 
