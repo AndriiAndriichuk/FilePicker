@@ -10,7 +10,7 @@ class FilePickerIntent(
 ) : Intent(packageContext, cls) {
 
     init {
-       // FilePickerActivity.currentActivity = packageContext.javaClass
+        FilePickerActivity.currentActivity = packageContext
     }
 
     var customBackgroundStyle: Int = android.R.color.white

@@ -70,7 +70,7 @@ class FilePickerActivity : AppCompatActivity() {
     )
 
     companion object {
-        var currentActivity = MainActivity::class.java
+        var currentActivity: Activity? = null
     }
 
 
@@ -148,12 +148,15 @@ class FilePickerActivity : AppCompatActivity() {
         }
 
         currentImageChosenItems.setOnClickListener {
-           // val intent = Intent(this, currentActivity)
-            intent.putStringArrayListExtra(
-                CHOSEN_FILES,
-                adapter.list.filter { it.isChosen }.map { it.file }.map { it.absolutePath } as ArrayList<String>?)
-            setResult(FILE_REQUEST_CODE, intent)
-            finish()
+            if (currentActivity != null) {
+                //val intent = Intent(this, currentActivity)
+                intent.putStringArrayListExtra(
+                    CHOSEN_FILES,
+                    adapter.list.filter { it.isChosen }.map { it.file }.map { it.absolutePath } as ArrayList<String>?)
+                setResult(FILE_REQUEST_CODE, intent)
+                finish()
+            }
+
         }
 
         currentImageChange.setOnClickListener {
