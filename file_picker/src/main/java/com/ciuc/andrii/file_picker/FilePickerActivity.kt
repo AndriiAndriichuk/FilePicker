@@ -1,15 +1,11 @@
 package com.ciuc.andrii.file_picker
 
 import android.Manifest
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.provider.Settings
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +25,9 @@ import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_file_picker.*
 import kotlinx.android.synthetic.main.activity_file_picker2.*
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
 
 
-class FilePickerActivity : AppCompatActivity() {
+open class FilePickerActivity : AppCompatActivity() {
 
     private var mediaFiles = ArrayList<FilePick>()
     private var currentPath = ""
@@ -58,9 +52,10 @@ class FilePickerActivity : AppCompatActivity() {
 
     private var mapPathToChip = hashMapOf<String, Chip>()
     private var mapIdToPath = hashMapOf<Int, String>()
+    private var mapChipToDevider = hashMapOf<Chip, TextView>()
     private var listExtensions = arrayOf<String>()
-    protected var STORAGE_PERMISSION = 9652
-    protected var REQUESET_OPEN_APP_SETTINGS = 9651
+    private var STORAGE_PERMISSION = 9652
+    private var REQUESET_OPEN_APP_SETTINGS = 9651
 
     private var storageWord = "Phone"
 
@@ -69,10 +64,10 @@ class FilePickerActivity : AppCompatActivity() {
         ViewGroup.LayoutParams.WRAP_CONTENT
     )
 
-    companion object {
-        var currentActivity: Activity? = null
-    }
-
+    val lpDevider = LinearLayout.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,6 +127,12 @@ class FilePickerActivity : AppCompatActivity() {
                 currentLinear.addView(newChip, lp)
                 mapPathToChip[currentPath] = newChip
 
+                val textDevider = TextView(this)
+                textDevider.text = "->"
+                newChip.id = ViewCompat.generateViewId()
+                currentLinear.addView(textDevider, lpDevider)
+                mapChipToDevider[newChip] = textDevider
+
                 loadFiles(currentPath)
 
 
@@ -148,14 +149,13 @@ class FilePickerActivity : AppCompatActivity() {
         }
 
         currentImageChosenItems.setOnClickListener {
-            if (currentActivity != null) {
-                //val intent = Intent(this, currentActivity)
-                intent.putStringArrayListExtra(
-                    CHOSEN_FILES,
-                    adapter.list.filter { it.isChosen }.map { it.file }.map { it.absolutePath } as ArrayList<String>?)
-                setResult(FILE_REQUEST_CODE, intent)
-                finish()
-            }
+
+            intent.putStringArrayListExtra(
+                CHOSEN_FILES,
+                adapter.list.filter { it.isChosen }.map { it.file }.map { it.absolutePath } as ArrayList<String>?)
+            setResult(FILE_REQUEST_CODE, intent)
+            finish()
+
 
         }
 
@@ -182,17 +182,15 @@ class FilePickerActivity : AppCompatActivity() {
     }
 
 
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (mediaFiles.isNotEmpty()) {
-            outState.putStringArrayList("ARRAY_STRING", mediaFiles.filter { it.isChosen }.map { it.file.absolutePath } as ArrayList<String>)
-            outState.putStringArrayList("ARRAY_STRING_MEDIA", mediaFiles.map { it.file.absolutePath } as ArrayList<String>)
+            outState.putStringArrayList(
+                "ARRAY_STRING",
+                mediaFiles.filter { it.isChosen }.map { it.file.absolutePath } as ArrayList<String>)
+            outState.putStringArrayList(
+                "ARRAY_STRING_MEDIA",
+                mediaFiles.map { it.file.absolutePath } as ArrayList<String>)
         }
     }
 
@@ -200,7 +198,8 @@ class FilePickerActivity : AppCompatActivity() {
         savedInstanceState: Bundle?
     ) {
         super.onRestoreInstanceState(savedInstanceState)
-        val mediaFilesList = savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
+        val mediaFilesList =
+            savedInstanceState?.getStringArrayList("ARRAY_STRING_MEDIA")?.map { FilePick(File(it)) } as ArrayList<FilePick>
         mediaFiles.clear()
         mediaFiles = mediaFilesList
         if (mediaFiles.isNotEmpty()) {
@@ -338,6 +337,9 @@ class FilePickerActivity : AppCompatActivity() {
 
         if (currentPath != rootPath) {
             if (mapPathToChip[currentPath] != null) {
+                if (mapChipToDevider[mapPathToChip[currentPath]] != null) {
+                    mapChipToDevider.remove(mapPathToChip[currentPath])
+                }
                 currentLinear.removeView(mapPathToChip[currentPath] as View)
                 mapIdToPath.remove(mapPathToChip[currentPath]?.id)
                 mapPathToChip.remove(currentPath)
@@ -396,7 +398,6 @@ class FilePickerActivity : AppCompatActivity() {
 
             adapter = FilesAdapter(mediaFiles, isList = true)
             currentRecyclerView.adapter = adapter
-
 
 
         } else {
