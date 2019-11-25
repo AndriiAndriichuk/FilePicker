@@ -125,7 +125,7 @@ open class FilePickerActivity : AppCompatActivity() {
                     createNewChip(mediaFiles[position].file.absolutePath.substringAfterLast('/'))
 
                 val textDevider = TextView(this)
-                textDevider.text = "->"
+                textDevider.text = "\u2BC8"
                 textDevider.id = ViewCompat.generateViewId()
                 currentLinear.addView(textDevider, lpDevider)
                 mapChipToDevider[newChip] = textDevider
