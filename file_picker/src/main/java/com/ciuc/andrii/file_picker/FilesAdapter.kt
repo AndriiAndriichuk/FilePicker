@@ -112,8 +112,8 @@ class FilesAdapter(
 
 
                 if (parent.image != null) {
-                    Log.d("imagesdsfvdv", MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath))
-                    when (MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath)) {
+                    Log.d("imagesdsfvdv", /*MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath)*/list[position].file.absolutePath.substringAfterLast('.'))
+                    when (/*MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath)*/list[position].file.absolutePath.substringAfterLast('.')) {
                         "jpg", "jpeg", "bmp", "gif", "png", "tif", "tiff" -> {
                             loadWithGlide(context, list[position].file.absolutePath, parent.image)
                         }
