@@ -129,7 +129,7 @@ open class FilePickerActivity : AppCompatActivity() {
                 textDevider.id = ViewCompat.generateViewId()
                 currentLinear.addView(textDevider, lpDevider)
                 mapChipToDevider[newChip] = textDevider
-                
+
                 currentLinear.addView(newChip, lp)
                 mapPathToChip[currentPath] = newChip
 
@@ -299,6 +299,7 @@ open class FilePickerActivity : AppCompatActivity() {
                         if (mapPathToChip[currentPath] != null) {
                             currentLinear.removeView(mapPathToChip[currentPath] as View)
                             mapIdToPath.remove(mapPathToChip[currentPath]?.id)
+                            mapChipToDevider.remove( mapPathToChip[currentPath])
                             mapPathToChip.remove(currentPath)
                             counter++
                             currentPath = currentPath.substringBeforeLast('/')
