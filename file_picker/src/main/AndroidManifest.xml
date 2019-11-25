@@ -3,7 +3,8 @@
     package="com.ciuc.andrii.file_picker">
 
     <application>
-        <activity android:name=".FilePickerActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".FilePickerActivity" />
     </application>
 
 </manifest>

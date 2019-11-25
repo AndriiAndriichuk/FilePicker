@@ -69,16 +69,6 @@ class FilesAdapter(
                 if (parent.image != null) {
                     loadSVG(context, R.drawable.ic_folder, parent.image)
                 }
-                //parent.rootConstraint.
-
-                /*  var background = parent.rootConstraint.background as RippleDrawable
-
-                  var rip1true = background.findDrawableByLayerId(R.id.rip1true)*/
-                // rip1true.setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY)
-
-
-                // Log.d("sbsbssgesgewhgew", "$rip1true")
-
 
                 if (parent.textItem != null) {
                     TextViewCompat.setTextAppearance(parent.textItem, textStyleName)
@@ -108,12 +98,9 @@ class FilesAdapter(
 
 
             } else {
-                // val mimeTypeMap = MimeTypeMap.getSingleton()
-
 
                 if (parent.image != null) {
-                    Log.d("imagesdsfvdv", /*MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath)*/list[position].file.absolutePath.substringAfterLast('.'))
-                    when (/*MimeTypeMap.getFileExtensionFromUrl(list[position].file.absolutePath)*/list[position].file.absolutePath.substringAfterLast('.')) {
+                    when (list[position].file.absolutePath.substringAfterLast('.')) {
                         "jpg", "jpeg", "bmp", "gif", "png", "tif", "tiff" -> {
                             loadWithGlide(context, list[position].file.absolutePath, parent.image)
                         }
@@ -136,11 +123,9 @@ class FilesAdapter(
                             loadSVG(context, R.drawable.ic_ppt, parent.image)
                         }
                         "doc", "docx" -> {
-                           // loadWithGlide(context, R.drawable.ic_docx, parent.image)
                             loadSVG(context, R.drawable.ic_doc, parent.image)
                         }
                         "doc", "docx" -> {
-                            // loadWithGlide(context, R.drawable.ic_docx, parent.image)
                             loadSVG(context, R.drawable.ic_doc, parent.image)
                         }
                         "xlsx", "xlsm", "xlsb", "xltm", "xlam" -> {
@@ -151,9 +136,7 @@ class FilesAdapter(
                         }
 
                         else -> {
-
                             loadWithGlide(context, R.drawable.ic_file, parent.image)
-                           // loadSVG(context, R.drawable.ic_docx, parent.image)
                         }
                     }
                 }

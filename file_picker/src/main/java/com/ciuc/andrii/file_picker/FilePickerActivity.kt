@@ -1,6 +1,8 @@
 package com.ciuc.andrii.file_picker
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -67,7 +69,9 @@ class FilePickerActivity : AppCompatActivity() {
         ViewGroup.LayoutParams.WRAP_CONTENT
     )
 
-
+    companion object {
+        var currentActivity = MainActivity::class.java
+    }
 
 
 
@@ -144,13 +148,12 @@ class FilePickerActivity : AppCompatActivity() {
         }
 
         currentImageChosenItems.setOnClickListener {
-          /*  val intent = Intent(this, MainActivity::class.java)
+           // val intent = Intent(this, currentActivity)
             intent.putStringArrayListExtra(
                 CHOSEN_FILES,
                 adapter.list.filter { it.isChosen }.map { it.file }.map { it.absolutePath } as ArrayList<String>?)
             setResult(FILE_REQUEST_CODE, intent)
-            finish()*/
-
+            finish()
         }
 
         currentImageChange.setOnClickListener {

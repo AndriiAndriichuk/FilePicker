@@ -1,20 +1,23 @@
 package com.ciuc.andrii.file_picker
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 
 
 class FilePickerIntent(
-    val packageContext: Context,
+    val packageContext: Activity,
     val cls: Class<*> = FilePickerActivity::class.java
 ) : Intent(packageContext, cls) {
+
+    init {
+       // FilePickerActivity.currentActivity = packageContext.javaClass
+    }
 
     var customBackgroundStyle: Int = android.R.color.white
 
     init {
         this.putExtra(ROOT_BACKGROUND, android.R.color.white)
     }
-
 
 
     var toolbarPosition: ToolbarPosition = ToolbarPosition.TOP
