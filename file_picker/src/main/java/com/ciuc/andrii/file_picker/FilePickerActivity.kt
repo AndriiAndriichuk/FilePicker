@@ -300,6 +300,9 @@ open class FilePickerActivity : AppCompatActivity() {
                             currentLinear.removeView(mapPathToChip[currentPath] as View)
                             mapIdToPath.remove(mapPathToChip[currentPath]?.id)
                             mapChipToDevider.remove( mapPathToChip[currentPath])
+                            if (mapChipToDevider[mapPathToChip[currentPath]] != null) {
+                                mapChipToDevider.remove(mapPathToChip[currentPath])
+                            }
                             mapPathToChip.remove(currentPath)
                             counter++
                             currentPath = currentPath.substringBeforeLast('/')
